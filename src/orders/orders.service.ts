@@ -1,8 +1,8 @@
 import { Injectable, Post } from '@nestjs/common';
 import { Client, ClientKafka, Transport } from '@nestjs/microservices';
 import { KafkaRequest } from 'src/global-dto/kafka-request';
-import { DeleteOrderInputs } from './model/dto/inputs/delete-order.input';
-import { UpdateOrderInput } from './model/dto/inputs/update-order.input';
+import { DeleteOrderInputs } from './dto/inputs/delete-order.input';
+import { UpdateOrderInput } from './dto/inputs/update-order.input';
 import { Order } from './model/order';
 
 @Injectable()

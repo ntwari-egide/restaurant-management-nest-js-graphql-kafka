@@ -1,7 +1,7 @@
 import { Args, Mutation, Query, Resolver } from "@nestjs/graphql";
-import { CreateOrderInput } from "./model/dto/inputs/create-order.input";
-import { DeleteOrderInputs } from "./model/dto/inputs/delete-order.input";
-import { UpdateOrderInput } from "./model/dto/inputs/update-order.input";
+import { CreateOrderInput } from "./dto/inputs/create-order.input";
+import { DeleteOrderInputs } from "./dto/inputs/delete-order.input";
+import { UpdateOrderInput } from "./dto/inputs/update-order.input";
 import { Order } from './model/order';
 import { OrdersService } from './orders.service';
 

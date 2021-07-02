@@ -1,6 +1,6 @@
 import { Body, Post, Req } from '@nestjs/common';
 import { Controller, Get } from '@nestjs/common';
-import { IOrder } from './model/dto/order.interface';
+import { IOrder } from './dto/order.interface';
 import { OrdersService } from './orders.service';
 
 @Controller('/api/v1/orders')
