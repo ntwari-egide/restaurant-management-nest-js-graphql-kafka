@@ -32,4 +32,9 @@ export class OrdersService {
         return order
     }
 
+    async getAllOrders(){
+
+        return this.client.send('get.orders.list','')
+    }
+
 }
