@@ -8,8 +8,6 @@ import { Order } from './model/order';
 @Injectable()
 export class OrdersService {
 
-        constructor(private kafkaRequestBody: KafkaRequest){}
-
     @Client({
         transport: Transport.KAFKA,
         options: {
@@ -35,10 +33,10 @@ export class OrdersService {
 
 
 
-        this.kafkaRequestBody.action = "create-order"
-        this.kafkaRequestBody.body = order
+        // this.kafkaRequestBody.action = "create-order"
+        // this.kafkaRequestBody.body = order
 
-        this.client.send('add.new.order',this.kafkaRequestBody)
+        // this.client.send('add.new.order',this.kafkaRequestBody)
 
         return order
     }
