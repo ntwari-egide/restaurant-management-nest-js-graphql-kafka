@@ -26,7 +26,10 @@ export class OrdersService {
     }
 
     async createNewOrder(order: Order): Promise<Order> {
-        return
+
+        this.client.send('add.new.order',order)
+
+        return order
     }
 
 }
