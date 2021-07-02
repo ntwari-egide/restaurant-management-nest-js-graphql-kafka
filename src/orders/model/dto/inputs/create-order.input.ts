@@ -1,10 +1,7 @@
-import { Field, ObjectType } from "@nestjs/graphql"
-import { IsOptional } from "class-validator"
+import { Field, InputType } from "@nestjs/graphql";
 
-
-@ObjectType()
-export class Order{
-
+@InputType()
+export class CreateOrderInput{
     @Field()
     orderId: string
 
@@ -34,5 +31,4 @@ export class Order{
 
     @Field()
     totalPrice: number
-
 }
