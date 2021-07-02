@@ -1,6 +1,7 @@
 import { Injectable, Post } from '@nestjs/common';
 import { Client, ClientKafka, Transport } from '@nestjs/microservices';
 import { KafkaRequest } from 'src/global-dto/kafka-request';
+import { DeleteOrderInputs } from './model/dto/inputs/delete-order.input';
 import { Order } from './model/order';
 
 @Injectable()
@@ -43,6 +44,10 @@ export class OrdersService {
 
     async getAllOrders(){
         return this.client.send('get.orders.list','')
+    }
+
+    async deleteOrder(deleteOrder: DeleteOrderInputs): Promise<Order>{
+        return
     }
 
 }
