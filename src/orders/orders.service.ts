@@ -1,9 +1,13 @@
 import { Injectable, Post } from '@nestjs/common';
 import { Client, ClientKafka, Transport } from '@nestjs/microservices';
+import { KafkaRequest } from 'src/global-dto/kafka-request';
 import { Order } from './model/order';
 
 @Injectable()
 export class OrdersService {
+
+        constructor(private kafkaRequestBody: KafkaRequest){}
+
     @Client({
         transport: Transport.KAFKA,
         options: {
@@ -27,13 +31,17 @@ export class OrdersService {
 
     async createNewOrder(order: Order): Promise<Order> {
 
-        this.client.send('add.new.order',order)
+
+
+        this.kafkaRequestBody.action = "create-order"
+        this.kafkaRequestBody.body = order
+
+        this.client.send('add.new.order',this.kafkaRequestBody)
 
         return order
     }
 
     async getAllOrders(){
-
         return this.client.send('get.orders.list','')
     }
 
