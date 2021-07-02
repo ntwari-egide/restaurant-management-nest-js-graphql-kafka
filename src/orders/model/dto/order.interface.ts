@@ -15,5 +15,10 @@ export interface IOrder{
     price: Number
 
     shipmentStatus: string
-    
+
+    orderQuantity: number
+
+    totalPrice: number
+
+
 }

@@ -19,4 +19,8 @@ export class Order{
 
     shipmentStatus: string
 
+    orderQuantity: number
+
+    totalPrice: number
+
 }
