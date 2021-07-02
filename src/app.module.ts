@@ -6,6 +6,7 @@ import { OrdersService } from './orders/orders.service';
 import { OrdersModule } from './orders/orders.module';
 import { CustomersModule } from './customers/customers.module';
 import { GraphQLModule } from '@nestjs/graphql';
+import { DatabaseModule } from './database/database.module';
 
 @Module({
   imports: [
@@ -13,7 +14,8 @@ import { GraphQLModule } from '@nestjs/graphql';
     CustomersModule,
     GraphQLModule.forRoot({
       autoSchemaFile: true
-    })
+    }),
+    DatabaseModule
   ],
   controllers: [AppController, OrdersController],
   providers: [AppService, OrdersService],
