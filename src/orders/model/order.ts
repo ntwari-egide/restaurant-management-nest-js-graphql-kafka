@@ -8,4 +8,12 @@ export class Order{
 
     status: string
 
+    menuName: string
+
+    description: string
+
+    price: Number
+
+    shipmentStatus: string
+
 }
