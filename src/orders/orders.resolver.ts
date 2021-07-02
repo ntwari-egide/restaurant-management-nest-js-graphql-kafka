@@ -23,7 +23,4 @@ export class OrdersResolver {
     async deleteUser(@Args('deleteOrderData') deleteOrderData: DeleteOrderInputs): Promise<Order>{
         return this.ordersService.deleteOrder(deleteOrderData)
     }
-
-
-
 }
