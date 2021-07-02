@@ -1,3 +1,6 @@
+import { IsOptional } from "class-validator"
+
+
 export class Order{
 
     orderId: string
@@ -16,4 +19,8 @@ export class Order{
 
     shipmentStatus: string
 
+}
+
+function Field() {
+    throw new Error("Function not implemented.")
 }
