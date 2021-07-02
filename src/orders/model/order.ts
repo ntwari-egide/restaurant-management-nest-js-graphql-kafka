@@ -20,7 +20,3 @@ export class Order{
     shipmentStatus: string
 
 }
-
-function Field() {
-    throw new Error("Function not implemented.")
-}
