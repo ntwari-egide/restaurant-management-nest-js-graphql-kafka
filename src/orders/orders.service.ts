@@ -32,6 +32,13 @@ export class OrdersService {
         await this.client.connect();
     }
 
+
+    async getAllOrdersFromDB(): Promise<OrderModel[]>{
+
+        return this.orderModel.find().exec()
+
+    }
+
     async createNewOrder(order: Order): Promise<Order> {
 
 
