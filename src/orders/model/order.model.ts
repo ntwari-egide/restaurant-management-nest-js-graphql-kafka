@@ -21,4 +21,5 @@ export const OrderSchema = mongoose.schema({
     orderQuantity: Number,
 
     totalPrice: Number
+    
 })
