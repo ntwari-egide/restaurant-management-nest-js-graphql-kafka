@@ -27,6 +27,6 @@ export class OrdersResolver {
 
     @Mutation(()=> Order)
     async deleteOrder(@Args('deleteOrderData') deleteOrderData: DeleteOrderInputs): Promise<Order>{
-        return this.ordersService.deleteOrder(deleteOrderData)
+        return this.ordersService.deleteOrderGql(deleteOrderData)
     }
 }

@@ -12,26 +12,26 @@ export class OrdersService {
 
     constructor(@Inject("ORDER") private readonly orderModel: Model<OrderModel>){}
 
-    @Client({
-        transport: Transport.KAFKA,
-        options: {
-            client: {
-                clientId: 'orders',
-                brokers: ['localhost:9092'],
-            },
-            consumer: {
-                groupId: 'orders-consumer'
-            }
-        }
-    })
-    client: ClientKafka
+    // @Client({
+    //     transport: Transport.KAFKA,
+    //     options: {
+    //         client: {
+    //             clientId: 'orders',
+    //             brokers: ['localhost:9092'],
+    //         },
+    //         consumer: {
+    //             groupId: 'orders-consumer'
+    //         }
+    //     }
+    // })
+    // client: ClientKafka
 
-    async onModuleInit() {
-        this.client.subscribeToResponseOf('add.new.order');
-        this.client.subscribeToResponseOf('get.orders.list');
+    // async onModuleInit() {
+    //     this.client.subscribeToResponseOf('add.new.order');
+    //     this.client.subscribeToResponseOf('get.orders.list');
 
-        await this.client.connect();
-    }
+    //     await this.client.connect();
+    // }
 
 
     async getAllOrdersFromDB(): Promise<OrderModel[]>{
@@ -115,26 +115,28 @@ export class OrdersService {
 
     async createNewOrder(order: Order): Promise<Order> {
 
-
-
         // this.kafkaRequestBody.action = "create-order"
         // this.kafkaRequestBody.body = order
 
         // this.client.send('add.new.order',this.kafkaRequestBody)
 
-        return order
+        const newOrder = new this.orderModel(order)
+
+        newOrder.save()
+
+        return newOrder
     }
 
     async getAllOrders(){
-        return this.client.send('get.orders.list','')
+        return this.orderModel.find().exec()
     }
 
-    async deleteOrder(deleteOrder: DeleteOrderInputs): Promise<Order>{
-        return
+    async deleteOrderGql(deleteOrder: DeleteOrderInputs): Promise<Order>{
+        return this.orderModel.findByIdAndRemove(deleteOrder.orderId)
     }
 
     async updateOrderGql(updateOrder: UpdateOrderInput): Promise<Order>{
-        return
+        return this.orderModel.findByIdAndUpdate(updateOrder).exec()
     }
 
 }
