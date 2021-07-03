@@ -105,6 +105,14 @@ export class OrdersService {
     }
 
 
+    async deleteOrderREST(orderId: string){
+
+        this.checkOrderExistance(orderId)
+
+        this.orderModel.findByIdAndRemove(orderId)
+
+    }
+
     async createNewOrder(order: Order): Promise<Order> {
 
 
