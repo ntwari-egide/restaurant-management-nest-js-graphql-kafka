@@ -12,26 +12,26 @@ export class OrdersService {
 
     constructor(@Inject("ORDER") private readonly orderModel: Model<OrderModel>){}
 
-    // @Client({
-    //     transport: Transport.KAFKA,
-    //     options: {
-    //         client: {
-    //             clientId: 'orders',
-    //             brokers: ['localhost:9092'],
-    //         },
-    //         consumer: {
-    //             groupId: 'orders-consumer'
-    //         }
-    //     }
-    // })
-    // client: ClientKafka
+    @Client({
+        transport: Transport.KAFKA,
+        options: {
+            client: {
+                clientId: 'orders',
+                brokers: ['localhost:9092'],
+            },
+            consumer: {
+                groupId: 'orders-consumer'
+            }
+        }
+    })
+    client: ClientKafka
 
-    // async onModuleInit() {
-    //     this.client.subscribeToResponseOf('add.new.order');
-    //     this.client.subscribeToResponseOf('get.orders.list');
+    async onModuleInit() {
+        this.client.subscribeToResponseOf('add.new.order');
+        this.client.subscribeToResponseOf('get.orders.list');
 
-    //     await this.client.connect();
-    // }
+        await this.client.connect();
+    }
 
 
     async getAllOrdersFromDB(): Promise<OrderModel[]>{
@@ -115,16 +115,17 @@ export class OrdersService {
 
     async createNewOrder(order: Order): Promise<Order> {
 
-        // this.kafkaRequestBody.action = "create-order"
-        // this.kafkaRequestBody.body = order
-
-        // this.client.send('add.new.order',this.kafkaRequestBody)
+        this.client.send('add.new.order',order)
 
         const newOrder = new this.orderModel(order)
 
         newOrder.save()
 
         return newOrder
+    }
+
+    async getAllOrdersRealTime(){
+        return this.client.send('get.orders.list','')
     }
 
     async getAllOrders(){
