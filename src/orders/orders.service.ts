@@ -1,6 +1,7 @@
 import { Inject, Injectable, NotFoundException, Post } from '@nestjs/common';
 import { Client, ClientKafka, Transport } from '@nestjs/microservices';
 import { Model } from 'mongoose';
+import { OrderNotFoundException } from 'src/exceptions/orders.exception';
 import { DeleteOrderInputs } from './dto/inputs/delete-order.input';
 import { UpdateOrderInput } from './dto/inputs/update-order.input';
 import { IOrder, OrderModel } from './dto/order.interface';
@@ -52,15 +53,57 @@ export class OrdersService {
         return order
     }
 
+
+    checkOrderExistance(orderId: String){
+        let order : any
+
+        order = this.orderModel.findById(orderId).exec()
+
+        if(!order){
+
+            throw new OrderNotFoundException("Order not found with id: "+orderId);
+
+        }
+    }
+
     async updateOrder(id: String,orderUpdated: OrderModel){
+        this.checkOrderExistance(id)
+
         return this.orderModel.findByIdAndUpdate(id,orderUpdated).exec()
     }
 
     async deleteById(id: String){
+
+        this.checkOrderExistance(id)
+
         return this.orderModel.findByIdAndRemove(id).exec()
     }
 
-    
+
+    async findShippedOrders(): Promise<OrderModel[]>{
+        let orders : any
+
+        try {
+            orders = this.orderModel.find({shipmentStatus: "SHIPPED"}).exec()
+        } catch (error) {
+            throw new OrderNotFoundException("no order shipped found")
+        }
+
+        return orders
+    }
+
+    async findOrdersByCustomerId(customerId: string): Promise<OrderModel[]>{
+        let orders : any
+
+        try {
+            orders = this.orderModel.find({customerId: customerId}).exec()
+        } catch (error) {
+            throw new OrderNotFoundException(`No order found for customer ${customerId}`)
+        }
+
+        return orders
+    }
+
 
     async createNewOrder(order: Order): Promise<Order> {
 
