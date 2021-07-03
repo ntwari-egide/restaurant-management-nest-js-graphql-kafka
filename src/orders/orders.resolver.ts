@@ -22,7 +22,7 @@ export class OrdersResolver {
 
     @Mutation(() => Order)
     async updateOrder(@Args('updateOrderData') updateOrderData : UpdateOrderInput): Promise<Order>{
-        return this.ordersService.updateOrder(updateOrderData)
+        return this.ordersService.updateOrderGql(updateOrderData)
     }
 
     @Mutation(()=> Order)

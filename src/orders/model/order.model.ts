@@ -1,25 +1,40 @@
 const mongoose = require("mongoose");
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
-export const OrderSchema = mongoose.schema({
+export type OrderDocument = Order & Document;
 
-    orderId: String,
+@Schema()
+export class Order{
+    @Prop()
+    orderId: string
 
-    orderDate: Date,
-
-    customerId: String,
-
-    status: String,
-
-    menuName: String,
-
-    description: String,
-
-    price: Number,
-
-    shipmentStatus: String,
-
-    orderQuantity: Number,
-
-    totalPrice: Number
+    @Prop()
+    orderDate: Date
     
-})
+    @Prop()
+    customerId: string
+    
+    @Prop()
+    status: string
+    
+    @Prop()
+    menuName: string
+    
+    @Prop()
+    description: string
+    
+    @Prop()
+    price: Number
+    
+    @Prop()
+    shipmentStatus: string
+    
+    @Prop()
+    orderQuantity: number
+    
+    @Prop()
+    totalPrice: number
+
+
+}
+export const OrderSchema = SchemaFactory.createForClass(Order);
