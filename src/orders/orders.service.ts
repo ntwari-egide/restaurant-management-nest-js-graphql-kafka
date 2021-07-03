@@ -4,13 +4,13 @@ import { Model } from 'mongoose';
 import { OrderNotFoundException } from 'src/exceptions/orders.exception';
 import { DeleteOrderInputs } from './dto/inputs/delete-order.input';
 import { UpdateOrderInput } from './dto/inputs/update-order.input';
-import { IOrder, OrderModel } from './dto/order.interface';
+import { OrderModel } from './dto/order.interface';
 import { Order } from './model/order';
 
 @Injectable()
 export class OrdersService {
 
-    constructor(@Inject("ORDER" ) private readonly orderModel: Model<OrderModel>){}
+    constructor(@Inject("ORDER") private readonly orderModel: Model<OrderModel>){}
 
     @Client({
         transport: Transport.KAFKA,
