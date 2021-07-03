@@ -7,6 +7,7 @@ import { OrdersModule } from './orders/orders.module';
 import { CustomersModule } from './customers/customers.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { DatabaseModule } from './database/database.module';
+import { Database } from './database';
 
 @Module({
   imports: [
@@ -18,6 +19,6 @@ import { DatabaseModule } from './database/database.module';
     DatabaseModule
   ],
   controllers: [AppController, OrdersController],
-  providers: [AppService, OrdersService],
+  providers: [AppService, OrdersService, Database],
 })
 export class AppModule {}
