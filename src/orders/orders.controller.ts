@@ -14,6 +14,16 @@ export class OrdersController {
         return this.ordersService.getAllOrdersFromDB()
     }
 
+    /**
+     * 
+     * @description: This api controller is using kafka for real time
+     */
+
+    @Get('/')
+    getallordersRealTime(){
+        return this.ordersService.getAllOrdersRealTime()
+    }
+
     @Post('/')
     createPost(@Body() newOrder:IOrder){
 
