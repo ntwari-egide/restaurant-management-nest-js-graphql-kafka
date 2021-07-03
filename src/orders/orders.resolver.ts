@@ -10,7 +10,7 @@ export class OrdersResolver {
 
     constructor(private readonly ordersService: OrdersService){}
 
-    @Query(()=> [Order] , { name: 'allOrders', nullable: 'items'})
+    @Query(() => [Order] , { name: 'allOrders', nullable: 'items'})
     getAllOrders(){
         return this.ordersService.getAllOrders
     }
