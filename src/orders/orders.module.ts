@@ -8,7 +8,8 @@ import { OrdersService } from './orders.service';
 @Module({
   imports: [DatabaseModule],
   controllers: [OrdersController],
-  providers: [OrdersService,
+  providers: [
+    OrdersService,
     OrdersResolver,
     ...orderProvider
   ]
