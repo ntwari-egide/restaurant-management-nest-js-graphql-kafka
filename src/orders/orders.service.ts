@@ -109,7 +109,7 @@ export class OrdersService {
 
         this.checkOrderExistance(orderId)
 
-        this.orderModel.findByIdAndRemove(orderId)
+        this.orderModel.findByIdAndRemove(orderId).exec()
 
     }
 
@@ -132,7 +132,7 @@ export class OrdersService {
     }
 
     async deleteOrderGql(deleteOrder: DeleteOrderInputs): Promise<Order>{
-        return this.orderModel.findByIdAndRemove(deleteOrder.orderId)
+        return this.orderModel.findByIdAndRemove(deleteOrder.id).exec()
     }
 
     async updateOrderGql(updateOrder: UpdateOrderInput): Promise<Order>{
