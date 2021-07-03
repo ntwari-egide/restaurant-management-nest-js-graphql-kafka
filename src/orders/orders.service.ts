@@ -1,4 +1,4 @@
-import { Inject, Injectable, Post } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException, Post } from '@nestjs/common';
 import { Client, ClientKafka, Transport } from '@nestjs/microservices';
 import { Model } from 'mongoose';
 import { DeleteOrderInputs } from './dto/inputs/delete-order.input';
@@ -39,6 +39,29 @@ export class OrdersService {
 
     }
 
+    async findByOrderId(id: String) : Promise<OrderModel> {
+        let order : any
+
+        try {
+            order  = this.orderModel.findById(id).exec()
+        } catch (error) {
+            throw new NotFoundException("Order not found with id: "+id)
+            
+        }
+
+        return order
+    }
+
+    async updateOrder(id: String,orderUpdated: OrderModel){
+        return this.orderModel.findByIdAndUpdate(id,orderUpdated).exec()
+    }
+
+    async deleteById(id: String){
+        return this.orderModel.findByIdAndRemove(id).exec()
+    }
+
+    
+
     async createNewOrder(order: Order): Promise<Order> {
 
 
@@ -59,7 +82,7 @@ export class OrdersService {
         return
     }
 
-    async updateOrder(updateOrder: UpdateOrderInput): Promise<Order>{
+    async updateOrderGql(updateOrder: UpdateOrderInput): Promise<Order>{
         return
     }
 
