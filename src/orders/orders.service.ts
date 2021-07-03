@@ -1,12 +1,15 @@
-import { Injectable, Post } from '@nestjs/common';
+import { Inject, Injectable, Post } from '@nestjs/common';
 import { Client, ClientKafka, Transport } from '@nestjs/microservices';
-import { KafkaRequest } from 'src/global-dto/kafka-request';
+import { Model } from 'mongoose';
 import { DeleteOrderInputs } from './dto/inputs/delete-order.input';
 import { UpdateOrderInput } from './dto/inputs/update-order.input';
+import { IOrder, OrderModel } from './dto/order.interface';
 import { Order } from './model/order';
 
 @Injectable()
 export class OrdersService {
+
+    constructor(@Inject("ORDER" ) private readonly orderModel: Model<OrderModel>){}
 
     @Client({
         transport: Transport.KAFKA,
